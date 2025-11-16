@@ -1,6 +1,6 @@
-export default function HomePage() {
+export default function Home() {
     return (
-        <main>
+        <main className="bg-base-100">
             Home page
         </main>
     )
