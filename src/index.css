@@ -11,7 +11,8 @@
   --color-primary: #CAEB66;
   --color-primary-content: black;
   --color-primary-hover: #b4d15b;
-  --color-secondary: darkgreen;
+  --color-secondary: #03373D;
+  --color-secondary-content: white;
   /* CAEB66 03373D */
 }
 
@@ -27,7 +28,7 @@ nav a.active {
 }
 
 .trnsition {
-  @apply transition-all transition-discrete duration-300 rounded-md;
+  @apply transition-all transition-discrete duration-300;
 }
 
 .bttn {
@@ -36,4 +37,15 @@ nav a.active {
 
 .bttn-out {
   @apply border border-base-300 cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-base-300;
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
 }

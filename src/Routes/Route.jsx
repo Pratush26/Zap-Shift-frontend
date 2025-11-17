@@ -8,6 +8,7 @@ import NotFoundPage from "../Layouts/NotFound";
 import AboutUsPage from "../Pages/about/About";
 import CoverageAreaPage from "../Pages/coverage/CoverageArea";
 import SendParcel from "../Pages/sendParcel/SendParcel";
+import axios from "axios";
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +17,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                loader: async () => {
+                    const service = await axios('/services.json')
+                    const review = await axios('/reviews.json')
+                    return { services: service.data, reviews: review.data}
+                },
                 Component: HomePage
             },
             {
