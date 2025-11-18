@@ -3,6 +3,12 @@
 Welcome to **Zap Shift Resources**!  
 A curated collection of tools, guides, and assets for developing robust parcel management systems.
 
+[Live link]()
+
+[Frontend repository](https://github.com/Pratush26/Zap-Shift-frontend)
+
+[Backend repository](https://github.com/Pratush26/Zap-Shift-backend)
+
 ---
 
 ## 📊 System Overview Table

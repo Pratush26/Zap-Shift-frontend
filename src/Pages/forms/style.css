@@ -1,0 +1,31 @@
+input,
+textarea {
+    background-color: var(--color-base-100);
+    padding: 10px 20px;
+    font-size: .9rem;
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 2px 2px 4px rgba(1, 21, 0, 0.425);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+label,
+legend {
+    font-weight: 600;
+    padding-top: 18px;
+    padding-left: 4px;
+    font-size: .9rem;
+    color: var(--color-base-content);
+    width: 94%;
+    margin: auto;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 2px 2px 4px rgba(1, 21, 0, 0.425);
+    -webkit-text-fill-color: var(--color-base-content);
+    transition: background-color 5000s ease-in-out 0s;
+}
