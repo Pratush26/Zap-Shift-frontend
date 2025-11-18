@@ -10,10 +10,9 @@
   default: true;
   --color-primary: #CAEB66;
   --color-primary-content: black;
-  --color-primary-hover: #b4d15b;
+  --color-primary-hover: darkseagreen;
   --color-secondary: #03373D;
   --color-secondary-content: white;
-  /* CAEB66 03373D */
 }
 
 html,
@@ -36,7 +35,10 @@ nav a.active {
 }
 
 .bttn-out {
-  @apply border border-base-300 cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-base-300;
+  @apply border border-primary text-primary cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-primary hover:text-primary-content;
+}
+.bttn-outw {
+  @apply border border-gray-300 cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-primary hover:text-primary-content;
 }
 
 .embla {
