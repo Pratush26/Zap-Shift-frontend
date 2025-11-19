@@ -10,6 +10,8 @@ import SectionImg4 from './sectionImg/location-merchant.png'
 import SectionImg5 from './sectionImg/customer-top.png'
 import marchentBG from '../../assets/be-a-merchant-bg.png'
 import reviewIcon from '../../assets/reviewQuote.png'
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const sectionData = [
     { img: "https://img.icons8.com/?size=100&id=KF6QW2Bdzg46&format=png&color=135258", title: "Live Parcel Tracking", description: "Stay updated in real-time with our live parcel tracking feature. From pick-up to delivery, monitor your shipment's journey and get instant status updates for complete peace of mind." },
@@ -19,7 +21,21 @@ const sectionData = [
     { img: SectionImg3, title: "24/7 Call Center Support", description: "Our dedicated support team is available around the clock to assist you with any questions, updates, or delivery concerns—anytime you need us." }
 ]
 export default function Home() {
-    const { services, reviews } = useLoaderData()
+    const { data: servicesData, isLoading: servicesLoading, error: servicesError } = useQuery({
+        queryKey: ['services'],
+        queryFn: () => axios.get(`${import.meta.env.VITE_SERVER}/services`).then(res => res.data),
+        staleTime: 5 * 60 * 1000,
+    })
+
+    const { data: reviewsData, isLoading: reviewsLoading, error: reviewsError } = useQuery({
+        queryKey: ['reviews'],
+        queryFn: () => axios.get(`${import.meta.env.VITE_SERVER}/reviews`).then(res => res.data),
+        staleTime: 5 * 60 * 1000,
+    })
+
+    // Simple loading check
+    // if (servicesLoading || reviewsLoading) return <LoadingUi />
+    // if (servicesError || reviewsError) return <ErrorPage />
     return (
         <main className="text-base-content">
             <BannerSection />
@@ -51,7 +67,7 @@ export default function Home() {
                 <p className="font-medium text-sm max-w-4xl mx-auto text-gray-400 m-2">Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>
                 <article className="grid grid-cols-3 gap-4 my-6 text-base-content">
                     {
-                        services?.map((e, i) => (
+                        servicesData?.map((e, i) => (
                             <motion.div key={i} className="bg-base-100 p-6 flex flex-col justify-between gap-2 rounded-3xl hover:bg-primary trnsition">
                                 <img src={serviceIcon} alt="service icon" className="h-10 w-fit mx-auto rounded-full bg-gray-200" />
                                 <h4 className="text-xl font-semibold">{e.title}</h4>

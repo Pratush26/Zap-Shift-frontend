@@ -23,6 +23,7 @@ export default function LoginForm() {
             .then((res) => {
                 toast.success(`Welcome Back, ${res.user?.displayName}`)
                 reset()
+                navigate(state || "/")
             })
             .catch(err => {
                 console.error("Login error:", err);
@@ -32,7 +33,10 @@ export default function LoginForm() {
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then(res => toast.success(`Welcome Back, ${res.user?.displayName}`))
+            .then(res => {
+                toast.success(`Welcome Back, ${res.user?.displayName}`)
+                navigate(state || "/")
+            })
             .catch(err => toast.error(err.message || "Google login failed"))
     }
 

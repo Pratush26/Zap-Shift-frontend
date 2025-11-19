@@ -3,7 +3,6 @@ import './App.css'
 import Navbar from './Shared/Navbar'
 import Footer from './Shared/Footer'
 import Loader from './Shared/Loader'
-import { ToastContainer } from 'react-toastify'
 
 function App() {
   const { state } = useNavigation()
@@ -16,7 +15,6 @@ function App() {
           :
           <Outlet />
       }
-      <ToastContainer />
       <Footer />
     </div>
   )

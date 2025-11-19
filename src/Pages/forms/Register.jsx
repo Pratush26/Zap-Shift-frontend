@@ -28,13 +28,14 @@ export default function RegisterForm() {
 
         axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_BB_KEY}`, formData)
             .then((res) => {
-                return createUser(data.email, data.password)
+                createUser(data.email, data.password)
                     .then(() => {
-                        return updateUser(data.name, res.data.data.display_url)
+                        updateUser(data.name, res.data.data.display_url)
                     })
                     .then(() => {
                         toast.success("Registration Successful")
                         reset()
+                        navigate(state || "/")
                     })
                     .catch(err => {
                         console.error("Update user error:", err);
@@ -49,7 +50,10 @@ export default function RegisterForm() {
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then(() => toast.success("Login Successful"))
+            .then(() => {
+                toast.success("Login Successful")
+                navigate(state || "/")
+            })
             .catch(err => {
                 console.error("Google login error:", err);
                 toast.error(err.message || "Google login failed")

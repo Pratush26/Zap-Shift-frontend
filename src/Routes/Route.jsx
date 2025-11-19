@@ -21,11 +21,6 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader: async () => {
-                    const service = await axios(`${import.meta.env.VITE_SERVER}/services`)
-                    const review = await axios(`${import.meta.env.VITE_SERVER}/reviews`)
-                    return { services: service.data, reviews: review.data}
-                },
                 Component: HomePage
             },
             {
