@@ -8,7 +8,7 @@ export default function Navbar() {
         signOutUser().then(() => console.log("s")).catch(err => console.error(err))
     }
     return (
-        <nav className='bg-base-100 text-base-content py-4 px-6 rounded-xl flex items-center justify-between'>
+        <nav className='bg-base-100 w-full text-base-content py-4 px-6 rounded-xl flex items-center justify-between'>
             <Logo />
             <section className="flex gap-4 text-sm font-medium">
                 <NavLink className="hover:text-gray-500 trnsition" to='/services'>Services</NavLink>

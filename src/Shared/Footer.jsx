@@ -3,7 +3,7 @@ import Logo from "../Utils/Logo";
 
 export default function Footer() {
     return (
-        <section className="bg-neutral text-neutral-content rounded-xl">
+        <section className="bg-neutral w-full text-neutral-content rounded-xl">
             <footer className="flex flex-col items-center justify-center w-2/3 mx-auto my-10 gap-3 text-center text-sm font-extralight">
                 <Logo />
                 <p>Enjoy fast, reliable parcel delivery with real-time tracking and zero hassle. From personal packages to business shipments — we deliver on time, every time.</p>

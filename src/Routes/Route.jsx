@@ -9,11 +9,15 @@ import AboutUsPage from "../Pages/about/About";
 import CoverageAreaPage from "../Pages/coverage/CoverageArea";
 import SendParcel from "../Pages/sendParcel/SendParcel";
 import axios from "axios";
+import LoadingUi from "../Layouts/LoadingUi";
+import ErrorPage from "../Layouts/ErrorPage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: App,
+        hydrateFallbackElement: <LoadingUi />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,

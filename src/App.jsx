@@ -1,14 +1,22 @@
-import { Outlet } from 'react-router'
+import { Outlet, useNavigation } from 'react-router'
 import './App.css'
 import Navbar from './Shared/Navbar'
 import Footer from './Shared/Footer'
+import Loader from './Shared/Loader'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
-
+  const { state } = useNavigation()
   return (
-    <div className='flex flex-col min-h-screen justify-between p-4 md:p-8'>
+    <div className='flex flex-col min-h-screen items-center justify-between p-4 md:p-8'>
       <Navbar />
-      <Outlet />
+      {
+        state === 'loading' ?
+          <Loader />
+          :
+          <Outlet />
+      }
+      <ToastContainer />
       <Footer />
     </div>
   )
