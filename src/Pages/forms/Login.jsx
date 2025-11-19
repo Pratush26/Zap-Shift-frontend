@@ -48,8 +48,8 @@ export default function LoginForm() {
                 <button type='button' onClick={() => setShowPassword(!showPassword)} className='absolute p-1 right-2 bottom-0 -translate-y-1/3 cursor-pointer'>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
             </div>
             <p className="font-semibold text-gray-700 text-sm my-4">Don't have an account? <Link state={state || '/'} to='/register' className="text-sky-500 hover:text-blue-600 trnsition">Register</Link></p>
-            <button disabled={isSubmitting} type="submit" className="bttn trnsition">{isSubmitting ? "Login in..." : "Login"}</button>
-            <button disabled={isSubmitting} type="button" onClick={handleGoogleLogin} className="bttn-outw hover:text-gray-500 trnsition my-1 flex items-center-safe gap-2"><FcGoogle />Log in with Google</button>
+            <button disabled={isSubmitting} type="submit" className="bttn trnsition rounded-full">{isSubmitting ? "Login in..." : "Login"}</button>
+            <button disabled={isSubmitting} type="button" onClick={handleGoogleLogin} className="bttn-outw rounded-full hover:text-gray-500 trnsition my-1 flex items-center-safe gap-2"><FcGoogle />Log in with Google</button>
         </form>
     )
 }

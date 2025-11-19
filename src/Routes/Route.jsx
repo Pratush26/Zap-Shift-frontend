@@ -30,6 +30,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/coverage",
+                loader: () => axios(`${import.meta.env.VITE_SERVER}/ware-houses`),
                 Component: CoverageAreaPage
             },
             {

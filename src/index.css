@@ -31,14 +31,14 @@ nav a.active {
 }
 
 .bttn {
-  @apply bg-primary text-primary-content cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-[var(--color-primary-hover)];
+  @apply bg-primary text-primary-content cursor-pointer px-4 py-2 font-bold hover:bg-[var(--color-primary-hover)];
 }
 
 .bttn-out {
-  @apply border border-primary text-primary cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-primary hover:text-primary-content;
+  @apply border border-primary text-primary cursor-pointer px-4 py-2 font-bold hover:bg-primary hover:text-primary-content;
 }
 .bttn-outw {
-  @apply border border-gray-300 cursor-pointer px-4 py-2 rounded-md font-bold hover:bg-primary hover:text-primary-content;
+  @apply border border-gray-300 cursor-pointer px-4 py-2 font-bold hover:bg-primary hover:text-primary-content;
 }
 
 .embla {

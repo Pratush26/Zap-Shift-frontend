@@ -12,8 +12,8 @@ export default function Navbar() {
                 <NavLink className="hover:text-gray-500 trnsition" to='/be-rider'>Be a rider</NavLink>
             </section>
             <section className='flex gap-2'>
-                <button className='bttn-outw trnsition'>Sign In</button>
-                <button className='bttn trnsition'>Sign Up</button>
+                <button className='bttn-outw trnsition rounded-md'>Sign In</button>
+                <button className='bttn trnsition rounded-md'>Sign Up</button>
             </section>
         </nav>
     )

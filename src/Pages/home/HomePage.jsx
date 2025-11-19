@@ -84,8 +84,8 @@ export default function Home() {
                     <h2 className="text-4xl font-bold">Merchant and Customer Satisfaction is Our First Priority</h2>
                     <p className="font-medium text-sm max-w-4xl mx-auto text-gray-400 m-2">We offer the lowest delivery charge with the highest value along with 100% safety of your product. Pathao courier delivers your parcels in every corner of Bangladesh right on time.</p>
                     <div className="flex gap-3">
-                        <Link to='/' className='bttn trnsition'>Become a Merchant</Link>
-                        <Link to='/' className='bttn-out trnsition'>Earn with ZapShift Courier</Link>
+                        <Link to='/' className='bttn trnsition rounded-full'>Become a Merchant</Link>
+                        <Link to='/' className='bttn-out trnsition rounded-full'>Earn with ZapShift Courier</Link>
                     </div>
                 </div>
                 <img src={SectionImg4} alt="banner" className="w-full h-auto" />
