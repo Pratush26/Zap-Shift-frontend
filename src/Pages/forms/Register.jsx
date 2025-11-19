@@ -1,65 +1,86 @@
 import axios from "axios"
-import { useEffect, useRef, useState } from "react"
-import { useForm } from "react-hook-form"
+import { useContext, useEffect, useRef, useState } from "react"
+import { useForm, useWatch } from "react-hook-form"
 import { Link, useLocation, useNavigate } from "react-router"
 import { toast } from "react-toastify"
 import { FaEye, FaEyeSlash } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 import './style.css'
 import imgIcon from "../../assets/image-upload-icon.png"
+import { AuthContext } from "../../Context/AuthContext"
 
 export default function RegisterForm() {
-    // const { user, createUser, updateUser, googleSignIn } = useContext(AuthContext)
+    const { user, createUser, updateUser, googleSignIn } = useContext(AuthContext)
     const [showPassword, setShowPassword] = useState(false)
     const fileInputRef = useRef(null);
     const [preview, setPreview] = useState(null);
     const navigate = useNavigate()
     const { state } = useLocation()
-    const { register, handleSubmit, watch, setError, clearErrors, reset, formState: { errors, isSubmitting } } = useForm()
-    // if (user) navigate(state || "/");
+    const { register, handleSubmit, setError, control, clearErrors, reset, formState: { errors, isSubmitting } } = useForm()
+
+    useEffect(() => {
+        if (user) navigate(state || "/")
+    }, [user, navigate, state])
 
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append("image", data.image[0]);
-        // axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_BB_KEY}`, formData).then((res) => {
-        //     createUser(data.email, data.password).then(() => {
-        //         updateUser(data.name, res.data.data.display_url).then(() => {
-        //             toast.success("Registration Successful")
-        //             reset()
-        //         }).catch(err => toast.error(err))
-        //     }).catch(e => toast.error(e))
-        // }).catch((er) => toast.error(er));
+
+        axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_BB_KEY}`, formData)
+            .then((res) => {
+                return createUser(data.email, data.password)
+                    .then(() => {
+                        return updateUser(data.name, res.data.data.display_url)
+                    })
+                    .then(() => {
+                        toast.success("Registration Successful")
+                        reset()
+                    })
+                    .catch(err => {
+                        console.error("Update user error:", err);
+                        toast.error(err.message || "Profile update failed")
+                    })
+            })
+            .catch((er) => {
+                console.error("Image upload error:", er);
+                toast.error(er.message || "Image upload failed")
+            });
     }
 
     const handleGoogleLogin = () => {
-        // googleSignIn().then(() => {
-        //     toast.success("Login Successful")
-        //     navigate(state || "/")
-        // }).catch(err => toast.error(err))
+        googleSignIn()
+            .then(() => toast.success("Login Successful"))
+            .catch(err => {
+                console.error("Google login error:", err);
+                toast.error(err.message || "Google login failed")
+            })
     }
 
-    const imageFile = watch("image");
+    const imageFile = useWatch({ control, name: 'image' });
 
     // Generate preview when file is selected
     useEffect(() => {
-    if (imageFile && imageFile[0]) {
-        const file = imageFile[0];
-        const maxSize = 1024 * 1024; // 1MB
-        
-        if (file.size > maxSize) {
-            setError("image", {
-                type: "manual",
-                message: `File must be less than 1MB (current: ${(file.size / 1024 / 1024).toFixed(2)}MB)`
-            });
-            setPreview(null);
-        } else {
-            clearErrors("image");
-            const reader = new FileReader();
-            reader.onload = (e) => setPreview(e.target.result);
-            reader.readAsDataURL(file);
+        if (imageFile && imageFile[0]) {
+            const file = imageFile[0];
+            const maxSize = 1024 * 1024; // 1MB
+
+            if (file.size > maxSize) {
+                setTimeout(() => {
+                    setError("image", {
+                        type: "manual",
+                        message: `File must be less than 1MB (current: ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+                    });
+                    setPreview(null);
+                }, 0);
+            } else {
+                clearErrors("image");
+                const reader = new FileReader();
+                reader.onload = (e) => setPreview(e.target.result)
+                reader.readAsDataURL(file)
+            }
         }
-    }
-}, [imageFile, setError, clearErrors]);
+        else setTimeout(() => setPreview(null), 0)
+    }, [imageFile, setError, clearErrors]);
 
     const handleIconClick = () => {
         fileInputRef.current?.click();
@@ -113,7 +134,7 @@ export default function RegisterForm() {
             </div>
             <p className="font-semibold text-gray-700 text-sm my-4">Already have an account? <Link state={state || '/'} to='/login' className="text-sky-500 hover:text-blue-600 trnsition">Login</Link></p>
             <button disabled={isSubmitting} type="submit" className="bttn trnsition rounded-full">{isSubmitting ? "Registering..." : "Register"}</button>
-            <button disabled={isSubmitting} type="button" onClick={handleGoogleLogin} className="bttn-outw rounded-full hover:text-gray-500 trnsition my-1 flex items-center-safe gap-2"><FcGoogle />Sign in with Google</button>
+            <button disabled={isSubmitting} type="button" onClick={handleGoogleLogin} className="bttn-outw bg-base-100 rounded-full hover:text-gray-500 trnsition my-1 flex items-center-safe gap-2"><FcGoogle />Sign in with Google</button>
         </form>
     )
 }
