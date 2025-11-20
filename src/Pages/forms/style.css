@@ -1,5 +1,6 @@
 input,
-textarea {
+textarea,
+select {
     background-color: var(--color-base-100);
     padding: 10px 20px;
     font-size: .9rem;
@@ -9,6 +10,7 @@ textarea {
 }
 
 input:focus,
+select:focus,
 textarea:focus {
     outline: none;
 }

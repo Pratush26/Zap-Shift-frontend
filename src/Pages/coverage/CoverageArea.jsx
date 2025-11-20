@@ -3,11 +3,24 @@ import 'leaflet/dist/leaflet.css'
 import { useLoaderData } from "react-router";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Loader from "../../Shared/Loader";
+import ErrorPage from "../../Layouts/ErrorPage";
+import Error from "../../Shared/Error";
 
 export default function CoverageAreaPage() {
-    const { data } = useLoaderData()
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm()
     const mapRef = useRef(null)
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm()
+    
+    const { data, isLoading, error: dataError } = useQuery({
+        queryKey: ['reviews'],
+        queryFn: () => axios(`${import.meta.env.VITE_SERVER}/ware-houses`).then(res => res.data),
+        staleTime: 5 * 60 * 1000,
+    })
+
+    if (isLoading) return <Loader />;
+    if (dataError) return <Error msg={dataError.message} />;
     const onSubmit = (typed) => {
         const target = data.find(e => e.city.toLowerCase().includes(typed.search.toLowerCase()))
         const viewZoom = 18

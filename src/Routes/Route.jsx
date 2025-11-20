@@ -8,9 +8,9 @@ import NotFoundPage from "../Layouts/NotFound";
 import AboutUsPage from "../Pages/about/About";
 import CoverageAreaPage from "../Pages/coverage/CoverageArea";
 import SendParcel from "../Pages/sendParcel/SendParcel";
-import axios from "axios";
 import LoadingUi from "../Layouts/LoadingUi";
 import ErrorPage from "../Layouts/ErrorPage";
+import BeRider from "../Pages/BeARider/BeRider";
 
 export const router = createBrowserRouter([
     {
@@ -29,8 +29,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/coverage",
-                loader: () => axios(`${import.meta.env.VITE_SERVER}/ware-houses`),
                 Component: CoverageAreaPage
+            },
+            {
+                path: "/be-rider",
+                Component: BeRider
             },
             {
                 path: "/parcel",
