@@ -11,6 +11,7 @@ import SendParcel from "../Pages/sendParcel/SendParcel";
 import LoadingUi from "../Layouts/LoadingUi";
 import ErrorPage from "../Layouts/ErrorPage";
 import BeRider from "../Pages/BeARider/BeRider";
+import PriceCalculationPage from "../Pages/priceCalculator/PriceCalculator";
 
 export const router = createBrowserRouter([
     {
@@ -36,7 +37,11 @@ export const router = createBrowserRouter([
                 Component: BeRider
             },
             {
-                path: "/parcel",
+                path: "/price-calculator",
+                Component: PriceCalculationPage
+            },
+            {
+                path: "/send-parcel",
                 Component: SendParcel
             }
         ]

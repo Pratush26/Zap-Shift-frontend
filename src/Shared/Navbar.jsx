@@ -11,10 +11,10 @@ export default function Navbar() {
         <nav className='bg-base-100 w-full text-base-content py-4 px-6 rounded-xl flex items-center justify-between'>
             <Logo />
             <section className="flex gap-4 text-sm font-medium">
-                <NavLink className="hover:text-gray-500 trnsition" to='/services'>Services</NavLink>
                 <NavLink className="hover:text-gray-500 trnsition" to='/coverage'>Coverage</NavLink>
                 <NavLink className="hover:text-gray-500 trnsition" to='/about'>About Us</NavLink>
-                <NavLink className="hover:text-gray-500 trnsition" to='/pricing'>Pricing</NavLink>
+                <NavLink className="hover:text-gray-500 trnsition" to='/price-calculator'>Pricing</NavLink>
+                <NavLink className="hover:text-gray-500 trnsition" to='/send-parcel'>Send Parcel</NavLink>
                 <NavLink className="hover:text-gray-500 trnsition" to='/be-rider'>Be a rider</NavLink>
             </section>
             {
