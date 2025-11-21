@@ -15,8 +15,7 @@ textarea:focus {
     outline: none;
 }
 
-label,
-legend {
+label{
     font-weight: 600;
     padding-top: 18px;
     padding-left: 4px;
@@ -30,4 +29,10 @@ input:-webkit-autofill {
     -webkit-box-shadow: 2px 2px 4px rgba(1, 21, 0, 0.425);
     -webkit-text-fill-color: var(--color-base-content);
     transition: background-color 5000s ease-in-out 0s;
+}
+
+#non-document, #document {
+    box-shadow: none;
+    width: fit-content;
+    margin-right: 12px;
 }

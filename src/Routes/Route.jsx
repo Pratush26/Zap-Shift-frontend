@@ -7,11 +7,11 @@ import LoginForm from "../Pages/forms/Login";
 import NotFoundPage from "../Layouts/NotFound";
 import AboutUsPage from "../Pages/about/About";
 import CoverageAreaPage from "../Pages/coverage/CoverageArea";
-import SendParcel from "../Pages/sendParcel/SendParcel";
 import LoadingUi from "../Layouts/LoadingUi";
 import ErrorPage from "../Layouts/ErrorPage";
 import BeRider from "../Pages/BeARider/BeRider";
 import PriceCalculationPage from "../Pages/priceCalculator/PriceCalculator";
+import SendParcelForm from "../Pages/forms/ParcelForm";
 
 export const router = createBrowserRouter([
     {
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/send-parcel",
-                Component: SendParcel
+                Component: SendParcelForm
             }
         ]
     },
