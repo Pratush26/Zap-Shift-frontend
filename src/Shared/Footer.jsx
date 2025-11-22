@@ -11,7 +11,7 @@ export default function Footer() {
                     <NavLink className="hover:text-gray-500 trnsition" to='/services'>Services</NavLink>
                     <NavLink className="hover:text-gray-500 trnsition" to='/coverage'>Coverage</NavLink>
                     <NavLink className="hover:text-gray-500 trnsition" to='/about'>About Us</NavLink>
-                    <NavLink className="hover:text-gray-500 trnsition" to='/pricing'>Pricing</NavLink>
+                    <NavLink className="hover:text-gray-500 trnsition" to='/price-calculator'>Pricing</NavLink>
                     <NavLink className="hover:text-gray-500 trnsition" to='/be-rider'>Be a rider</NavLink>
                 </section>
                 <p className="font-semibold text-lg">Social Links :</p>
