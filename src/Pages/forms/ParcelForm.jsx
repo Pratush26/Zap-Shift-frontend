@@ -73,6 +73,7 @@ export default function SendParcelForm() {
         }
         });
     }
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full p-10 my-6 mx-2 rounded-2xl bg-base-100 grid grid-cols-2 place-content-center-safe gap-6" >
             <h1 className="text-4xl font-bold col-span-2">Parcel Information</h1>
