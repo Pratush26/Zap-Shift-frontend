@@ -32,7 +32,8 @@ export default function BeRiderForm() {
             ...data,
             name: user?.displayName,
             email: user?.email,
-            image: user?.photoURL
+            image: user?.photoURL,
+            requestedRole: "rider"
         }
         ).then((res) => {
             if(res.data.acknowledged) toast.success(`Your Request is successfully submitted,\nYou will be notified soon`)

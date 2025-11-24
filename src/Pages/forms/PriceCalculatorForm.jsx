@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import Error from "../../Shared/Error"
 import Loader from "../../Shared/Loader"
 import { useState } from "react"
+import { priceCalculator } from "../../Utils/PriceCalculator"
 
 export default function PriceCalculatorForm() {
     const [deliveryCost, setDeliveryCost] = useState(0)
@@ -25,6 +26,7 @@ export default function PriceCalculatorForm() {
     if (divisionError) return <Error msg={divisionError?.message} />;
     if (branchesError) return <Error msg={branchesError?.message} />;
     const onSubmit = (data) => {
+        // priceCalculator()
         // sigInUser(data.email, data.password)
         //     .then((res) => {
         //         toast.success(`Welcome Back, ${res.user?.displayName}`)

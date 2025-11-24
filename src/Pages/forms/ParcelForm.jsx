@@ -1,18 +1,24 @@
-import axios from "axios"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext } from "react"
 import { useForm, useWatch } from "react-hook-form"
 import { toast } from "react-toastify"
 import './style.css'
-import { AuthContext } from "../../Context/AuthContext"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "../../Shared/Loader"
 import Error from "../../Shared/Error"
+import { UserContext } from "../../Context/AuthContext"
+import axios from "axios"
+import { priceCalculator } from "../../Utils/PriceCalculator"
+import Swal from "sweetalert2"
 
 export default function SendParcelForm() {
-    const { user, createUser, updateUser, googleSignIn } = useContext(AuthContext)
-    const { register, handleSubmit, setError, control, clearErrors, reset, formState: { errors, isSubmitting } } = useForm()
-    const sdivision = useWatch({ control, name: "senderDivision" })
-    const rdivision = useWatch({ control, name: "receiverDivision" })
+    const { user } = useContext(UserContext)
+    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm()
+
+    const [sdivision, rdivision] = useWatch({
+        control,
+        name: ["senderDivision", "receiverDivision", "parcelType", "weight"]
+    })
+    
     const { data: divisionData, isLoading: divisionLoading, error: divisionError } = useQuery({
         queryKey: ['divisions'],
         queryFn: () => axios.get(`${import.meta.env.VITE_SERVER}/divisions`).then(res => res.data),
@@ -27,32 +33,45 @@ export default function SendParcelForm() {
     if (branchesLoading || divisionLoading) return <Loader />;
     if (divisionError) return <Error msg={divisionError?.message} />;
     if (branchesError) return <Error msg={branchesError?.message} />;
+
     const sbranchesData = branchesData.filter(b => b.region === sdivision)
     const rbranchesData = branchesData.filter(b => b.region === rdivision)
-    const onSubmit = (data) => {
-        console.log(data)
-        // axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_BB_KEY}`, formData)
-        //     .then((res) => {
-        //         createUser(data.email, data.password)
-        //             .then(() => {
-        //                 updateUser(data.name, res.data.data.display_url)
-        //             })
-        //             .then(() => {
-        //                 toast.success("Registration Successful")
-        //                 reset()
-        //                 navigate(state || "/")
-        //             })
-        //             .catch(err => {
-        //                 console.error("Update user error:", err);
-        //                 toast.error(err.message || "Profile update failed")
-        //             })
-        //     })
-        //     .catch((er) => {
-        //         console.error("Image upload error:", er);
-        //         toast.error(er.message || "Image upload failed")
-        //     });
-    }
 
+    const onSubmit = (data) => {
+        const deliveryCharge = (priceCalculator(data.senderDivision, data.receiverDivision, data.parcelType, data.weight))
+        Swal.fire({
+            title: `Do you want to send this parcel?`,
+            text: `The delivery cost will be ${deliveryCharge}`,
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Yes, pay now!",
+            denyButtonText: `Ok, pay later!`
+        }).then((result) => {
+            if (!result.isDismissed) {
+                axios.post(`${import.meta.env.VITE_SERVER}/create-parcel`, {
+                    ...data,
+                    createdBy: user?.email
+                })
+                .then(res => {
+                    toast.success("Successfully saved parcel details!")
+                    if (result.isConfirmed) {
+                        axios.post(`${import.meta.env.VITE_SERVER}/create-parcel`, {parcelId: res?.data?.insertedId}).then(() => {
+                            toast.success("Payment successful!")
+                            }).catch(err => {
+                                toast.error(err?.message || err || "Payment failed")
+                                console.error(err)
+                            })
+                        }
+                        else Swal.fire("Successfully saved parcel details!", "", "success");
+                        reset()
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        toast.error(err.message || "Process failed")
+                    })
+        }
+        });
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full p-10 my-6 mx-2 rounded-2xl bg-base-100 grid grid-cols-2 place-content-center-safe gap-6" >
             <h1 className="text-4xl font-bold col-span-2">Parcel Information</h1>
@@ -62,25 +81,25 @@ export default function SendParcelForm() {
                 <div className="w-full">
                     {errors.parcelType ? <p className="text-sm text-error">{errors.parcelType.message}</p> : <label htmlFor="parcelType">Parcel Type :</label>}
                     <div>
-                    <input type="radio" {...register("parcelType", { required: "Parcel type is required" })} value="document" id="document" />
-                    <label htmlFor="document">Document</label>
+                        <input type="radio" {...register("parcelType", { required: "Parcel type is required" })} value="document" id="document" />
+                        <label htmlFor="document">Document</label>
                     </div>
                     <div>
-                    <input type="radio" {...register("parcelType", { required: "Parcel type is required" })} value="non-document" id="non-document" />
-                    <label htmlFor="non-document">Non-Document</label>
+                        <input type="radio" {...register("parcelType", { required: "Parcel type is required" })} value="non-document" id="non-document" />
+                        <label htmlFor="non-document">Non-Document</label>
                     </div>
                 </div>
-                <div className="w-full flex flex-col justify-center h-full">
-                    <p>Delivery Charge: d</p>
-                    <p>Estimated Time: d</p>
-                </div>
                 <div className="w-full">
-                    {errors.parcelTitle ? <p className="text-sm text-error">{errors.parcelTitle.message}</p> : <label htmlFor="parcelTitle">Parcel Title :</label>}
-                    <input type="text" {...register("parcelTitle", { required: "parcel title is required" })} placeholder="Enter parcel title" id="parcelTitle" />
+                    {errors.parcelInfo ? <p className="text-sm text-error">{errors.parcelInfo.message}</p> : <label htmlFor="parcelInfo">Parcel Information :</label>}
+                    <textarea type="text" {...register("parcelInfo", { required: "parcel information is required" })} placeholder="Enter parcel Information" id="parcelInfo" />
                 </div>
                 <div className="w-full">
                     {errors.weight ? <p className="text-sm text-error">{errors.weight.message}</p> : <label htmlFor="weight">Weight :</label>}
                     <input type="number" {...register("weight", { required: "weight is required" })} placeholder="Enter parcel weight" id="weight" />
+                </div>
+                <div className="w-full">
+                  {errors.due ? <p className="text-sm text-error">{errors.due.message}</p> : <label htmlFor="due">Due :</label>}
+                  <input type="number" {...register("due")} placeholder="Enter due amount (optional)" id="due" />
                 </div>
             </fieldset>
 
@@ -92,7 +111,7 @@ export default function SendParcelForm() {
                 </div>
                 <div className="w-full">
                     {errors.senderEmail ? <p className="text-sm text-rose-500">{errors.senderEmail.message}</p> : <label htmlFor="senderEmail">Sender Email :</label>}
-                    <input type="email" {...register("senderEmail", { required: "sender email is required" })} placeholder="Enter sender email" id="senderEmail" />
+                    <input type="email" {...register("senderEmail")} placeholder="Enter sender email (optional)" id="senderEmail" />
                 </div>
                 <div className="w-full">
                     {errors.senderPhone ? <p className="text-sm text-error">{errors.senderPhone.message}</p> : <label htmlFor="senderPhone">Sender Phone :</label>}
@@ -130,7 +149,7 @@ export default function SendParcelForm() {
                 </div>
                 <div className="w-full">
                     {errors.receiverEmail ? <p className="text-sm text-rose-500">{errors.receiverEmail.message}</p> : <label htmlFor="receiverEmail">Receiver Email :</label>}
-                    <input type="email" {...register("receiverEmail", { required: "Receiver email is required" })} placeholder="Enter receiver email" id="receiverEmail" />
+                    <input type="email" {...register("receiverEmail")} placeholder="Enter receiver email (optional)" id="receiverEmail" />
                 </div>
                 <div className="w-full">
                     {errors.receiverPhone ? <p className="text-sm text-error">{errors.receiverPhone.message}</p> : <label htmlFor="receiverPhone">Receiver Phone :</label>}
