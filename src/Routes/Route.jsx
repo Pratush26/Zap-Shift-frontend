@@ -13,6 +13,8 @@ import BeRider from "../Pages/BeARider/BeRider";
 import PriceCalculationPage from "../Pages/priceCalculator/PriceCalculator";
 import SendParcelForm from "../Pages/forms/ParcelForm";
 import AfterPaymentHandlerPage from "../Pages/afterPayment/AfterPayment";
+import DashboardOverview from "../Pages/dashboard/Overview";
+import DashboardLayout from "../Layouts/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -61,6 +63,20 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/login",
+                Component: LoginForm
+            }
+        ]
+    },
+    {
+        path: '/dashboard',
+        Component: DashboardLayout,
+        children: [
+            {
+                index: true,
+                Component: DashboardOverview
+            },
+            {
+                path: "login",
                 Component: LoginForm
             }
         ]

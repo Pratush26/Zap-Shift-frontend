@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Loader from "../../Shared/Loader";
-import ErrorPage from "../../Layouts/ErrorPage";
 import Error from "../../Shared/Error";
 
 export default function CoverageAreaPage() {
@@ -48,7 +47,7 @@ export default function CoverageAreaPage() {
                         data?.map(e => (
                             <Marker key={e._id} position={[e.latitude, e.longitude]}>
                                 <Popup>
-                                    <p><span className="font-bold">City: </span>{e.city}</p>
+                                    <p><span className="font-bold">City: </span>{e.district}</p>
                                     <p><span className="font-bold">Branch: </span>{e.covered_area.join(", ")}</p>
                                 </Popup>
                             </Marker>
