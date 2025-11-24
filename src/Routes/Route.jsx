@@ -12,6 +12,7 @@ import ErrorPage from "../Layouts/ErrorPage";
 import BeRider from "../Pages/BeARider/BeRider";
 import PriceCalculationPage from "../Pages/priceCalculator/PriceCalculator";
 import SendParcelForm from "../Pages/forms/ParcelForm";
+import AfterPaymentHandlerPage from "../Pages/afterPayment/AfterPayment";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: "/send-parcel",
                 Component: SendParcelForm
+            },
+            {
+                path: "/after-payment",
+                Component: AfterPaymentHandlerPage
             }
         ]
     },

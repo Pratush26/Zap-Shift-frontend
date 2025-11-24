@@ -55,8 +55,9 @@ export default function SendParcelForm() {
                 .then(res => {
                     toast.success("Successfully saved parcel details!")
                     if (result.isConfirmed) {
-                        axios.post(`${import.meta.env.VITE_SERVER}/create-parcel`, {parcelId: res?.data?.insertedId}).then(() => {
-                            toast.success("Payment successful!")
+                        toast.success("Wait for completing payment!")
+                        axios.post(`${import.meta.env.VITE_SERVER}/create-checkout-session`, {parcelId: res?.data?.insertedId}).then(res => {
+                            window.location.href = res.data.url
                             }).catch(err => {
                                 toast.error(err?.message || err || "Payment failed")
                                 console.error(err)

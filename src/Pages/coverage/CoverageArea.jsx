@@ -1,6 +1,5 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import 'leaflet/dist/leaflet.css'
-import { useLoaderData } from "react-router";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
