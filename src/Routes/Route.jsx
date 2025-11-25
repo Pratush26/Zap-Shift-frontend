@@ -14,7 +14,7 @@ import SendParcelForm from "../Pages/forms/ParcelForm";
 import AfterPaymentHandlerPage from "../Pages/afterPayment/AfterPayment";
 import DashboardOverview from "../Pages/dashboard/Overview";
 import DashboardLayout from "../Layouts/Dashboard";
-import RegisterForm from "../Pages/forms/RegisterForm";
+import RegisterForm from "../Pages/forms/RegisterPage";
 
 export const router = createBrowserRouter([
     {
