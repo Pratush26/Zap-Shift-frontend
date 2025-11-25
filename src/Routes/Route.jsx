@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import App from "../App";
 import HomePage from "../Pages/home/HomePage";
 import AuthLayout from "../Layouts/Auth";
-import RegisterForm from "../Pages/forms/register";
 import LoginForm from "../Pages/forms/Login";
 import NotFoundPage from "../Layouts/NotFound";
 import AboutUsPage from "../Pages/about/About";
@@ -15,6 +14,7 @@ import SendParcelForm from "../Pages/forms/ParcelForm";
 import AfterPaymentHandlerPage from "../Pages/afterPayment/AfterPayment";
 import DashboardOverview from "../Pages/dashboard/Overview";
 import DashboardLayout from "../Layouts/Dashboard";
+import RegisterForm from "../Pages/forms/RegisterForm";
 
 export const router = createBrowserRouter([
     {
