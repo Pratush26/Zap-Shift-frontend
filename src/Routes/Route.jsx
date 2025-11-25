@@ -21,6 +21,7 @@ import AssignParcel from "../Pages/dashboard/tables/AssignParcel";
 import DeliverParcel from "../Pages/dashboard/tables/DeliverParcel";
 import MyParcelPage from "../Pages/dashboard/tables/MyParcel";
 import HelpCenter from "../Pages/Help";
+import TrackOrder from "../Pages/forms/TrackOrder";
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
                 Component: AfterPaymentHandlerPage
             },
             {
+                path: "/track-order",
+                Component: TrackOrder
+            },
+            {
                 path: "/help-center",
                 Component: HelpCenter
             }
@@ -83,6 +88,10 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                Component: DashboardOverview
+            },
+            {
+                path: 'overview',
                 Component: DashboardOverview
             },
             {

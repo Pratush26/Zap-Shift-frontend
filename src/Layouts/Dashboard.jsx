@@ -11,7 +11,7 @@ export default function DashboardLayout() {
         <div className="p-4 md:p-7">
             <nav className="py-4 px-6 rounded-xl bg-base-100 flex items-center justify-between gap-2">
                 <button onClick={() => setIsExpanded(!isExpanded)} className="text-xl cursor-pointer">{isExpanded? <RxCross1 /> : <RiMenu2Line />}</button>
-                <Link to='/'><Logo /></Link>
+                <Logo />
             </nav>
             <section className="flex my-4 gap-4">
                 <Aside isExpended={isExpanded} />

@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 
 const links = [
-    { to: "/dashboard", icon: <GrOverview />, text: "Dashboard" },
+    { to: "/dashboard/overview", icon: <GrOverview />, text: "Dashboard" },
     { to: "/dashboard/my-parcel", icon: <BsBoxSeamFill />, text: "My Parcel" },
     { to: "/dashboard/assign-parcel", icon: <FaTruckRampBox />, text: "Assign Parcel" },
     { to: "/dashboard/deliver-parcel", icon: <FaPeopleCarryBox />, text: "Deliver Parcel" },

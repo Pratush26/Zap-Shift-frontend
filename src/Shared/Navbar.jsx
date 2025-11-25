@@ -14,6 +14,7 @@ export default function Navbar() {
                 <NavLink className="hover:text-gray-500 trnsition" to='/coverage'>Coverage</NavLink>
                 <NavLink className="hover:text-gray-500 trnsition" to='/about'>About Us</NavLink>
                 <NavLink className="hover:text-gray-500 trnsition" to='/price-calculator'>Pricing</NavLink>
+                <NavLink className="hover:text-gray-500 trnsition" to='/track-order'>Track Parcel</NavLink>
                 <NavLink className="hover:text-gray-500 trnsition" to='/send-parcel'>Send Parcel</NavLink>
             </section>
             {
