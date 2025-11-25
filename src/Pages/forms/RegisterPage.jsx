@@ -90,7 +90,7 @@ export default function RegisterForm() {
         fileInputRef.current?.click();
     };
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full px-8 py-12 my-6 mx-2 rounded-lg flex flex-col items-center-safe justify-center-safe gap-3" >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full px-8 py-12 my-6 mx-2 rounded-lg flex flex-col items-center justify-center gap-3" >
             <h1 className="text-4xl font-bold">Create an Account</h1>
             <div className="w-full">
                 {errors.image ? <p className="text-sm text-rose-500">{errors.image.message}</p> : <label htmlFor="image">Image:</label>}
@@ -136,7 +136,7 @@ export default function RegisterForm() {
                     {...register("password", { required: "Password is required", pattern: { value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/, message: "Password must contain at least 6 characters including upper and lowercase letters" } })} />
                 <button type='button' onClick={() => setShowPassword(!showPassword)} className='absolute p-1 right-2 bottom-0 -translate-y-1/3 cursor-pointer'>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
             </div>
-            <p className="font-semibold text-gray-700 text-sm my-4">Already have an account? <Link state={state || '/'} to='/login' className="text-sky-500 hover:text-blue-600 trnsition">Login</Link></p>
+            <p className="font-semibold text-gray-700 text-sm my-4 flex gap-3 w-full">Already have an account? <Link state={state || '/'} to='/login' className="text-sky-500 hover:text-blue-600 trnsition">Login</Link></p>
             <button disabled={isSubmitting} type="submit" className="bttn trnsition rounded-full">{isSubmitting ? "Registering..." : "Register"}</button>
             <button disabled={isSubmitting} type="button" onClick={handleGoogleLogin} className="bttn-outw bg-base-100 rounded-full hover:text-gray-500 trnsition my-1 flex items-center-safe gap-2"><FcGoogle />Sign in with Google</button>
         </form>

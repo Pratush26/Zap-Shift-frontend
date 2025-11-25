@@ -22,6 +22,7 @@ export default function AfterPaymentHandlerPage() {
     return (
         <main className="flex flex-col items-center justify-center gap-3 mx-4 my-8">
             <h1 className="text-3xl text-secondary font-bold">Payment Successful!</h1>
+            {paymentData?.parcelId && <p>Your parcel's tracking Id: {paymentData?.parcelId}</p>}
             <p>You successfully paid {paymentData?.currency || "="} {paymentData?.cost || 0}</p>
             <Link to='/' className="bttn rounded-lg trnsition shadow-md">Back to home</Link>
         </main>

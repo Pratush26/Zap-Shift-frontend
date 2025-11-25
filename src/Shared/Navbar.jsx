@@ -18,11 +18,12 @@ export default function Navbar() {
             </section>
             {
                 loading ?
-                    <p>Loading...</p>
-                    :
-                    user ?
-                        <div className='flex gap-3 items-center'>
+                <p>Loading...</p>
+                :
+                user ?
+                <div className='flex gap-3 items-center'>
                             <img src={user.photoURL} alt="user image" className='h-9 aspect-square object-cover rounded-full' />
+                            <Link className="hover:text-gray-500 trnsition text-sm font-medium" to='/dashboard'>Dashboard</Link>
                             <button onClick={handleSignOut} className='bttn trnsition rounded-md'>Sign Out</button>
                         </div>
                         :

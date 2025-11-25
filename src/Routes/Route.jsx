@@ -15,6 +15,12 @@ import AfterPaymentHandlerPage from "../Pages/afterPayment/AfterPayment";
 import DashboardOverview from "../Pages/dashboard/Overview";
 import DashboardLayout from "../Layouts/Dashboard";
 import RegisterForm from "../Pages/forms/RegisterPage";
+import ChangePassword from "../Pages/dashboard/ChangePassword";
+import AddRiderPage from "../Pages/dashboard/tables/AddRider";
+import AssignParcel from "../Pages/dashboard/tables/AssignParcel";
+import DeliverParcel from "../Pages/dashboard/tables/DeliverParcel";
+import MyParcelPage from "../Pages/dashboard/tables/MyParcel";
+import HelpCenter from "../Pages/Help";
 
 export const router = createBrowserRouter([
     {
@@ -50,6 +56,10 @@ export const router = createBrowserRouter([
             {
                 path: "/after-payment",
                 Component: AfterPaymentHandlerPage
+            },
+            {
+                path: "/help-center",
+                Component: HelpCenter
             }
         ]
     },
@@ -76,9 +86,25 @@ export const router = createBrowserRouter([
                 Component: DashboardOverview
             },
             {
-                path: "login",
-                Component: LoginForm
-            }
+                path: "change-password",
+                Component: ChangePassword
+            },
+            {
+                path: "add-rider",
+                Component: AddRiderPage
+            },
+            {
+                path: "assign-parcel",
+                Component: AssignParcel
+            },
+            {
+                path: "deliver-parcel",
+                Component: DeliverParcel
+            },
+            {
+                path: "my-parcel",
+                Component: MyParcelPage
+            },
         ]
     },
     {

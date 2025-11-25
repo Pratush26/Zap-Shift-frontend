@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useForm, useWatch } from "react-hook-form"
 import { toast } from "react-toastify"
 import './style.css'
@@ -12,6 +12,7 @@ import Swal from "sweetalert2"
 
 export default function SendParcelForm() {
     const { user } = useContext(UserContext)
+    const [trackId, setTrackId] = useState(null)
     const { register, handleSubmit, control, reset, formState: { errors, isSubmitting } } = useForm()
 
     const [sdivision, rdivision] = useWatch({
@@ -54,6 +55,7 @@ export default function SendParcelForm() {
                 })
                 .then(res => {
                     toast.success("Successfully saved parcel details!")
+                    setTrackId(res?.data?.insertedId)
                     if (result.isConfirmed) {
                         toast.success("Wait for completing payment!")
                         axios.post(`${import.meta.env.VITE_SERVER}/create-checkout-session`, {parcelId: res?.data?.insertedId}).then(res => {
@@ -77,7 +79,7 @@ export default function SendParcelForm() {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full p-10 my-6 mx-2 rounded-2xl bg-base-100 grid grid-cols-2 place-content-center-safe gap-6" >
             <h1 className="text-4xl font-bold col-span-2">Parcel Information</h1>
-
+            {trackId && <p>Your parcel's tracking Id: {trackId}</p>}
             <fieldset className="grid grid-cols-2 col-span-2 gap-6">
                 <legend className="font-semibold text-lg underline underline-offset-4 text-secondary mb-4">Parcel Details</legend>
                 <div className="w-full">
