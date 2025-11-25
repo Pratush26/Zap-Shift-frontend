@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import BannerSection from "./Banner";
 import { motion } from "motion/react";
 import serviceIcon from '../../assets/service.png'
@@ -27,11 +27,11 @@ export default function Home() {
         staleTime: 5 * 60 * 1000,
     })
 
-    const { data: reviewsData, isLoading: reviewsLoading, error: reviewsError } = useQuery({
-        queryKey: ['reviews'],
-        queryFn: () => axios.get(`${import.meta.env.VITE_SERVER}/reviews`).then(res => res.data),
-        staleTime: 5 * 60 * 1000,
-    })
+    // const { data: reviewsData, isLoading: reviewsLoading, error: reviewsError } = useQuery({
+    //     queryKey: ['reviews'],
+    //     queryFn: () => axios.get(`${import.meta.env.VITE_SERVER}/reviews`).then(res => res.data),
+    //     staleTime: 5 * 60 * 1000,
+    // })
 
     // Simple loading check
     // if (servicesLoading || reviewsLoading) return <LoadingUi />
