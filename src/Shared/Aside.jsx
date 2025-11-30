@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
 import { motion } from "motion/react";
-import { GrOverview } from "react-icons/gr";
+import { GrOverview, GrStakeholder } from "react-icons/gr";
 import { BsBoxSeamFill } from "react-icons/bs";
 import { FaTruckRampBox, FaPeopleCarryBox } from "react-icons/fa6";
-import { MdPassword } from "react-icons/md";
+import { MdPassword, MdWork } from "react-icons/md";
 import { LuBike, LuBadgeHelp, LuLogOut } from "react-icons/lu";
 import "./Aside.css"
 import { useContext } from "react";
@@ -15,6 +15,8 @@ const links = [
     { to: "/dashboard/assign-parcel", icon: <FaTruckRampBox />, text: "Assign Parcel" },
     { to: "/dashboard/deliver-parcel", icon: <FaPeopleCarryBox />, text: "Deliver Parcel" },
     { to: "/dashboard/add-rider", icon: <LuBike />, text: "Add Rider" },
+    { to: "/dashboard/assigned-job", icon: <MdWork />, text: "Assigned Job" },
+    { to: "/dashboard/get-job", icon: <GrStakeholder />, text: "Get Job" },
 ]
 const commonLinks = [
     { to: "/dashboard/change-password", icon: <MdPassword />, text: "Change Password" },

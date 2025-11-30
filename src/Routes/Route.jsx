@@ -12,7 +12,6 @@ import BeRider from "../Pages/BeARider/BeRider";
 import PriceCalculationPage from "../Pages/priceCalculator/PriceCalculator";
 import SendParcelForm from "../Pages/forms/ParcelForm";
 import AfterPaymentHandlerPage from "../Pages/afterPayment/AfterPayment";
-import DashboardOverview from "../Pages/dashboard/Overview";
 import DashboardLayout from "../Layouts/Dashboard";
 import RegisterForm from "../Pages/forms/RegisterPage";
 import ChangePassword from "../Pages/dashboard/ChangePassword";
@@ -22,6 +21,7 @@ import DeliverParcel from "../Pages/dashboard/tables/DeliverParcel";
 import MyParcelPage from "../Pages/dashboard/tables/MyParcel";
 import HelpCenter from "../Pages/Help";
 import TrackOrder from "../Pages/forms/TrackOrder";
+import DashboardOverviewPage from "../Pages/dashboard/overview/Overview";
 
 export const router = createBrowserRouter([
     {
@@ -88,11 +88,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: DashboardOverview
+                Component: DashboardOverviewPage
             },
             {
                 path: 'overview',
-                Component: DashboardOverview
+                Component: DashboardOverviewPage
             },
             {
                 path: "change-password",

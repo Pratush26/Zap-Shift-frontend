@@ -18,13 +18,13 @@ export default function MyParcelPage() {
         staleTime: 5 * 60 * 1000,
     })
 
-    if(isLoading) return (
+    if (isLoading) return (
         <div className="w-full flex items-center justify-center min-h-[80vh]">
             <Loader />
         </div>
     )
-    if(fetchingError) <Error msg={fetchingError.message} />
-    
+    if (fetchingError) <Error msg={fetchingError.message} />
+
     const handleClick = (type, id, cost) => {
         console.log(type, id, cost)
         if (type === "pay") {
@@ -106,21 +106,24 @@ export default function MyParcelPage() {
                                 </td>
                                 <td>
                                     <div className="flex justify-center gap-2 flex-wrap">
-                                        <button
-                                            disabled={!(e.paymentStatus.toLowerCase() === 'unpaid' || e.status.toLowerCase() === 'delivered')}
-                                            onClick={() => handleClick(`${e.paymentStatus.toLowerCase() === 'unpaid' ? "pay" : e.status.toLowerCase() === 'delivered' ? "return" : "none"}`, e._id, e.deliveryCost)}
-                                            className="bttn shadow rounded-full trnsition hover:text-gray-500"
-                                        >
-                                            {
-                                                e.paymentStatus.toLowerCase() === 'unpaid' ?
-                                                    "Pay Now"
-                                                    :
-                                                    e.status.toLowerCase() === 'delivered' ?
-                                                        "Return"
+                                        {
+                                            (e.paymentStatus.toLowerCase() === 'unpaid' || e.status.toLowerCase() === 'delivered')
+                                            &&
+                                            <button
+                                                onClick={() => handleClick(`${e.paymentStatus.toLowerCase() === 'unpaid' ? "pay" : e.status.toLowerCase() === 'delivered' ? "return" : "none"}`, e._id, e.deliveryCost)}
+                                                className="bttn shadow rounded-full trnsition hover:text-gray-500"
+                                            >
+                                                {
+                                                    e.paymentStatus.toLowerCase() === 'unpaid' ?
+                                                        "Pay Now"
                                                         :
-                                                        ""
-                                            }
-                                        </button>
+                                                        e.status.toLowerCase() === 'delivered' ?
+                                                            "Return"
+                                                            :
+                                                            ""
+                                                }
+                                            </button>
+                                        }
                                     </div>
                                 </td>
                             </tr>
