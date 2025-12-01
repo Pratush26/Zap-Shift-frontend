@@ -22,6 +22,7 @@ import MyParcelPage from "../Pages/dashboard/tables/MyParcel";
 import HelpCenter from "../Pages/Help";
 import TrackOrder from "../Pages/forms/TrackOrder";
 import DashboardOverviewPage from "../Pages/dashboard/overview/Overview";
+import AssignedJob from "../Pages/dashboard/tables/AssignedJob";
 
 export const router = createBrowserRouter([
     {
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
             {
                 path: "assign-parcel",
                 Component: AssignParcel
+            },
+            {
+                path: "assigned-job",
+                Component: AssignedJob
             },
             {
                 path: "deliver-parcel",

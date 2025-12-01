@@ -23,7 +23,7 @@ export default function AddRiderPage() {
             axis.patch(`${import.meta.env.VITE_SERVER}/update-employees-role`, { id, status: action, role: "rider" }),
         
         onSuccess: (res) => {
-            toast.success(res.data.message);
+            toast.success(res?.data?.message);
             queryClient.invalidateQueries(['add-rider']);
             modalRef.current.close()
         },
@@ -40,7 +40,6 @@ export default function AddRiderPage() {
         </div>
     )
     if (error) return <Error msg={error.message} />
-    console.log(modalData)
     const handleModal = (e) => {
         setModalData(e)
         modalRef.current.showModal()

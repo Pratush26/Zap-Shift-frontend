@@ -4,11 +4,14 @@ import { useRef, useState } from "react"
 import "./table.css"
 import Loader from "../../../Shared/Loader"
 import Error from "../../../Shared/Error"
+import { toast } from "react-toastify"
+import { Link } from "react-router"
 
 export default function AssignParcel() {
     const axis = useAxios()
     const modalRef = useRef(null)
     const [modalData, setModalData] = useState(null)
+    const [parcelId, setParcelId] = useState(null)
     const { data: parcelData, isLoading: parcelLoading, error: parcelErr } = useQuery({
         queryKey: ['pending-parcel'],
         queryFn: () => axis.get(`${import.meta.env.VITE_SERVER}/parcel-data?status=pending`).then(res => res.data),
@@ -27,9 +30,22 @@ export default function AssignParcel() {
     console.log(riderData)
     if (parcelErr) return <Error msg={parcelErr.message} />
     if (riderErr) return <Error msg={riderErr.message} />
-    const handleModal = (location) => {
+    const handleModal = (id, location) => {
+        setParcelId(id)
         setModalData(riderData.filter(e => e.dutyplace === location))
         modalRef.current.showModal()
+    }
+    const handleAssign = (riderId) => {
+        axis.patch(`${import.meta.env.VITE_SERVER}/assign-parcel`, { parcelId, riderId })
+            .then(res => {
+                if (res.data.success) toast.success(res.data.message || "Successfully assigned rider")
+                else toast.error(res.data.message || "Failed to assigned rider")
+            })
+            .catch(err => {
+                console.error(err)
+                toast.error(err.message || "Failed to assigned rider")
+            })
+        modalRef.current.close()
     }
     return (
         <main className="w-full">
@@ -42,7 +58,7 @@ export default function AssignParcel() {
                                 <th className="hidden sm:table-cell">SL no.</th>
                                 <th>Parcel Info</th>
                                 <th className="hidden sm:table-cell">Weight</th>
-                                <th>From</th>
+                                <th>Location</th>
                                 <th className="hidden sm:table-cell">Payment</th>
                                 <th className="hidden sm:table-cell">To</th>
                                 <th className="hidden sm:table-cell">Status</th>
@@ -59,7 +75,7 @@ export default function AssignParcel() {
                                             <p>{e.senderPhone}</p>
                                         </td>
                                         <td>{e.weight} kg</td>
-                                        <td>{e.from}</td>
+                                        <td>{e.currentLocation}</td>
                                         <td className="hidden sm:table-cell">
                                             <span className={`${e.paymentStatus === 'unpaid' ? "bg-warning" : "bg-secondary"} rounded-full px-4 text-white py-1 text-xs font-semibold`}>
                                                 {e.paymentStatus}
@@ -73,7 +89,7 @@ export default function AssignParcel() {
                                         </td>
                                         <td>
                                             <div className="flex justify-center gap-2 flex-wrap">
-                                                <button onClick={() => handleModal(e.currentLocation)} className="bttn trnsition rounded-lg shadow-md/20">Assign Rider</button>
+                                                <button onClick={() => handleModal(e._id, e.currentLocation)} className="bttn trnsition rounded-lg shadow-md/20">Assign Rider</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -92,8 +108,11 @@ export default function AssignParcel() {
                 <div className="modal-box">
                     <section className="space-y-1">
                         {
-                            modalData?.map(e => (
-                                <button className="p-3 rounded-lg hover:bg-base-300 w-full">{e.name}</button>
+                            modalData?.map((e, i) => (
+                                <button onClick={() => handleAssign(e._id)} key={i} className="p-3 cursor-pointer rounded-lg hover:bg-base-300 w-full flex justify-between">
+                                    <p>{e.name}</p>
+                                    <p>{e?.getWorkToday?.date === new Date().toDateString() ? e?.getWorkToday?.count : 0}</p>
+                                </button>
                             ))
                         }
                     </section>
